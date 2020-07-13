@@ -8,14 +8,14 @@ apt-get -qq update
 apt-get -qq dist-upgrade -y
 
 # Setup hetzner cloud controller manager
-mkdir -p /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf
+mkdir -p /etc/systemd/system/kubelet.service.d
 cat <<EOF > /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf
 [Service]
 Environment="KUBELET_EXTRA_ARGS=--cloud-provider=external"
 EOF
 
 # Setup Docker
-mkdir -p /etc/systemd/system/docker.service.d/
+mkdir -p /etc/systemd/system/docker.service.d
 cat <<EOF > /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
 [Service]
 ExecStart=

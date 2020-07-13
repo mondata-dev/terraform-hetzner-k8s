@@ -42,7 +42,7 @@ EOF
 kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/master/deploy/v1.6.1-networks.yaml
 
 # Setup Cluster Network Interface (CNI)
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml
 
 # Tolerate taints introduced by external cloud provider flag for critical pods
 kubectl -n kube-system patch daemonset kube-flannel-ds-amd64 --type json -p '[{"op":"add","path":"/spec/template/spec/tolerations/-","value":{"key":"node.cloudprovider.kubernetes.io/uninitialized","value":"true","effect":"NoSchedule"}}]'
@@ -52,6 +52,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.14/pkg/crd/manifests/csinodeinfo.yaml
 kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml
 
+# Setup hetzner cloud load balancer
+# See https://github.com/hetznercloud/hcloud-cloud-controller-manager#deployment
+# Skipped as it did not work! For now we setup metallb
+# kubectl -n kube-system create secret generic hcloud --from-literal=token=$HCLOUD_TOKEN
+# kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/master/deploy/v1.6.1.yaml
 
 # Store join command in temporary file
 kubeadm token create --print-join-command > /tmp/cluster_join

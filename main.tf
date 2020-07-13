@@ -50,3 +50,20 @@ resource "hcloud_floating_ip" "vb_cdap_load_balancer" {
   type = "ipv4"
   home_location = "nbg1"
 }
+
+resource "null_resource" "provision_loadbalancers" {
+  depends_on = [
+    null_resource.master_provisioners,
+    null_resource.worker_provisioners,
+  ]
+
+  provisioner "local-exec" {
+    command = "bash ${path.module}/hack/setup-loadbalancer.sh"
+
+    environment = {
+      KUBECONFIG         = "${local.credentials_dir}/admin.conf"
+      HCLOUD_FLOATING_IP = hcloud_floating_ip.vb_cdap_load_balancer.ip_address
+      HCLOUD_TOKEN       = var.hcloud_token
+    }
+  }
+}

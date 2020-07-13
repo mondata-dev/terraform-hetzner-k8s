@@ -11,6 +11,10 @@ resource "hcloud_server_network" "master" {
   network_id = hcloud_network.vb_cdap_k8s.id
 }
 
+locals {
+  credentials_dir = "${path.module}/creds"
+}
+
 resource "null_resource" "master_provisioners" {
   depends_on = [hcloud_server_network.master]
 
@@ -44,7 +48,7 @@ resource "null_resource" "master_provisioners" {
     environment = {
       SSH_PRIVATE_KEY   = var.ssh_private_key_file
       SSH_CONN          = "root@${hcloud_server.master.ipv4_address}"
-      COPY_TO_LOCAL     = "creds/"
+      COPY_TO_LOCAL     = local.credentials_dir
     }
   }
 }

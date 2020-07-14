@@ -5,28 +5,28 @@ alias helm=helm3
 
 # Setup MetalLB
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-35---setup-loadbalancing-optional
-# kubectl create namespace metallb
-# helm install metallb stable/metallb --namespace metallb
+kubectl create namespace metallb
+helm install metallb stable/metallb --namespace metallb
 
-# cat <<EOF | kubectl apply -f-
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   namespace: metallb
-#   name: metallb-config
-# data:
-#   config: |
-#     address-pools:
-#     - name: default
-#       protocol: layer2
-#       addresses:
-#       - $HCLOUD_FLOATING_IP/32
-# EOF
+cat <<EOF | kubectl apply -f-
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb
+  name: metallb-config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - $HCLOUD_FLOATING_IP/32
+EOF
 
 # Setup IP Failover
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-36---setup-floating-ip-failover-optional
-# helm repo add cbeneke https://cbeneke.github.com/helm-charts
-# helm repo update
+helm repo add cbeneke https://cbeneke.github.com/helm-charts
+helm repo update
 
 kubectl create namespace fip-controller
 helm install hcloud-fip-controller cbeneke/hcloud-fip-controller --namespace fip-controller

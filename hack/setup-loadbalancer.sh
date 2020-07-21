@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # TODO remove this in environments with only helm3 installed as helm
-alias helm=helm3
+HELM=helm3
 
 # Setup MetalLB
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-35---setup-loadbalancing-optional
 kubectl create namespace metallb
-helm install metallb stable/metallb --namespace metallb
+$HELM install metallb stable/metallb --namespace metallb
 
 cat <<EOF | kubectl apply -f-
 apiVersion: v1
@@ -25,11 +25,11 @@ EOF
 
 # Setup IP Failover
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-36---setup-floating-ip-failover-optional
-helm repo add cbeneke https://cbeneke.github.com/helm-charts
-helm repo update
+$HELM repo add cbeneke https://cbeneke.github.com/helm-charts
+$HELM repo update
 
 kubectl create namespace fip-controller
-helm install hcloud-fip-controller cbeneke/hcloud-fip-controller --namespace fip-controller
+$HELM install hcloud-fip-controller cbeneke/hcloud-fip-controller --namespace fip-controller
 
 cat <<EOF | kubectl apply -f -
 apiVersion: v1

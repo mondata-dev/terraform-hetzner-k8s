@@ -7,6 +7,9 @@
 apt-get -qq update
 apt-get -qq dist-upgrade -y
 
+# Setup NFS access (required for nfs-server-provisioner w/ StorageClass nfs)
+apt-get -qq install -y nfs-common
+
 # Setup hetzner cloud controller manager
 mkdir -p /etc/systemd/system/kubelet.service.d
 cat <<EOF > /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf

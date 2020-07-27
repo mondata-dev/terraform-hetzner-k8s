@@ -31,6 +31,11 @@ resource "null_resource" "worker_provisioners" {
     private_key = file(var.ssh_private_key_file)
   }
 
+  # generate cluster join command
+  provisioner "local-exec" {
+    command = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${var.ssh_private_key_file} root@${hcloud_server.master.ipv4_address} kubeadm token create --print-join-command > ${path.module}/creds/cluster_join_worker-${count.index}"
+  }
+
   provisioner "file" {
     source = "${path.module}/hack/setup-floating-ip.sh"
     destination = "/root/setup-floating-ip.sh"
@@ -42,7 +47,7 @@ resource "null_resource" "worker_provisioners" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/creds/cluster_join"
+    source      = "${path.module}/creds/cluster_join_worker-${count.index}"
     destination = "/tmp/cluster_join"
   }
 

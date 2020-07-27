@@ -57,6 +57,3 @@ kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/maste
 # Skipped as it did not work! For now we setup metallb
 # kubectl -n kube-system create secret generic hcloud --from-literal=token=$HCLOUD_TOKEN
 # kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/master/deploy/v1.6.1.yaml
-
-# Store join command in temporary file
-kubeadm token create --print-join-command > /tmp/cluster_join

@@ -22,5 +22,5 @@ variable "ssh_private_key_file" {
 
 variable "worker_cnt" {
   type = number
-  default = 4
+  default = 5
 }

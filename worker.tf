@@ -15,6 +15,16 @@ resource "hcloud_server_network" "worker" {
   count = var.worker_cnt
 }
 
+locals {
+  tmp_dir = "${path.root}/.terraform/tmp"
+}
+
+resource "null_resource" "tmp_dir" {
+  provisioner "local-exec" {
+    command = "mkdir -p ${local.tmp_dir}"
+  }
+}
+
 resource "null_resource" "worker_provisioners" {
   count = var.worker_cnt
 
@@ -22,6 +32,7 @@ resource "null_resource" "worker_provisioners" {
     null_resource.master_provisioners,
     hcloud_floating_ip.vb_cdap_load_balancer,
     hcloud_server_network.worker,
+    null_resource.tmp_dir,
   ]
 
   connection {
@@ -33,7 +44,7 @@ resource "null_resource" "worker_provisioners" {
 
   # generate cluster join command
   provisioner "local-exec" {
-    command = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${var.ssh_private_key_file} root@${hcloud_server.master.ipv4_address} kubeadm token create --print-join-command > ${path.module}/creds/cluster_join_worker-${count.index}"
+    command = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${var.ssh_private_key_file} root@${hcloud_server.master.ipv4_address} kubeadm token create --print-join-command > ${local.tmp_dir}/cluster_join_worker-${count.index}"
   }
 
   provisioner "file" {
@@ -47,7 +58,7 @@ resource "null_resource" "worker_provisioners" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/creds/cluster_join_worker-${count.index}"
+    source      = "${local.tmp_dir}/cluster_join_worker-${count.index}"
     destination = "/tmp/cluster_join"
   }
 

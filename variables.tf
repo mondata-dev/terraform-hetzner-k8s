@@ -23,3 +23,7 @@ variable "ssh_private_key_file" {
 variable "worker_cnt" {
   type = number
 }
+
+output "kubeconfig_path" {
+  description = "The path to the kubeconfig file for the newly created cluster"
+}

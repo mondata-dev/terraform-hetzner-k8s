@@ -17,4 +17,4 @@ mkdir -p "${COPY_TO_LOCAL}"
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     -i "${SSH_PRIVATE_KEY}" \
     "${SSH_CONN}:/etc/kubernetes/admin.conf" \
-    "${COPY_TO_LOCAL}"
+    "${KUBECONFIG_PATH}"

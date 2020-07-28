@@ -43,7 +43,7 @@ resource "null_resource" "provision_loadbalancers" {
     command = "bash ${path.module}/hack/setup-loadbalancer.sh"
 
     environment = {
-      KUBECONFIG         = "${local.credentials_dir}/admin.conf"
+      KUBECONFIG         = var.kubeconfig_path
       HCLOUD_FLOATING_IP = hcloud_floating_ip.vb_cdap_load_balancer.ip_address
       HCLOUD_TOKEN       = var.hcloud_token
     }

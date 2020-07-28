@@ -11,7 +11,7 @@ SSH_CONN=${SSH_CONN:-}
 COPY_TO_LOCAL=${COPY_TO_LOCAL:-}
 
 # Create directory (+parents if not exists)
-mkdir -p "${COPY_TO_LOCAL}"
+mkdir -p `dirname "${COPY_TO_LOCAL}"`
 
 # Copy admin config
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \

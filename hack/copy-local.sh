@@ -8,10 +8,10 @@ set -eu
 # Set values from env vars
 SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY:-}
 SSH_CONN=${SSH_CONN:-}
-COPY_TO_LOCAL=${COPY_TO_LOCAL:-}
+KUBECONFIG_PATH=${KUBECONFIG_PATH:-}
 
 # Create directory (+parents if not exists)
-mkdir -p `dirname "${COPY_TO_LOCAL}"`
+mkdir -p `dirname "${KUBECONFIG_PATH}"`
 
 # Copy admin config
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \

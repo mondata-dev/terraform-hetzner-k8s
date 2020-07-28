@@ -1,21 +1,3 @@
-# terraform {
-#   backend "gcs" {
-#     credentials = "../gcp-project-12345-02829d1c4a5a_terraform-sp-key.json"
-#     bucket  = "vb-terraform-state"
-#     prefix  = "vb-cdab/tfstate"
-#   }
-# }
-
-# Configure the Hetzner Cloud Provider
-provider "hcloud" {
-  token = var.hcloud_token
-  version = "~> 1.19"
-}
-
-provider "null" {
-  version = "~> 2.1"
-}
-
 # Setup ssh keys
 data "hcloud_ssh_keys" "admin_keys" {
   with_selector = "group=admin"

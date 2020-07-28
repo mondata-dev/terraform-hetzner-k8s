@@ -3,7 +3,7 @@ variable "hcloud_token" {
 }
 
 variable "ssh_key_name" {
-  description = "If not an empty string, terraform will create an ssh key with that name. See also ssh_public_key_file"
+  description = "If not an empty string, terraform will upload your ssh key to the hetzner cloud with that name. See also ssh_public_key_file"
   type = string
   default = ""
 }
@@ -22,5 +22,4 @@ variable "ssh_private_key_file" {
 
 variable "worker_cnt" {
   type = number
-  default = 7
 }

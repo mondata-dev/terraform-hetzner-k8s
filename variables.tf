@@ -27,4 +27,5 @@ variable "worker_cnt" {
 variable "kubeconfig_path" {
   description = "The path to the kubeconfig file for the newly created cluster"
   type = string
+  default = "${path.root}/creds/admin.conf"
 }

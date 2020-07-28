@@ -16,4 +16,6 @@ module "cluster" {
 
   hcloud_token = var.hcloud_token
   worker_cnt = 3
+
+  kubeconfig_path = "${path.module}/creds/admin.conf"
 }

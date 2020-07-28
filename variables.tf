@@ -24,6 +24,7 @@ variable "worker_cnt" {
   type = number
 }
 
-output "kubeconfig_path" {
+variable "kubeconfig_path" {
   description = "The path to the kubeconfig file for the newly created cluster"
+  type = string
 }

@@ -39,6 +39,7 @@ resource "null_resource" "worker_provisioners" {
     type = "ssh"
     user = "root"
     host = hcloud_server.worker[count.index].ipv4_address
+    agent = var.ssh_agent
     private_key = file(var.ssh_private_key_file)
   }
 

@@ -20,6 +20,12 @@ variable "ssh_private_key_file" {
   default = "~/.ssh/id_rsa"
 }
 
+variable "ssh_agent" {
+  description = "Set this to true for password protected private keys"
+  type = bool
+  default = false
+}
+
 variable "worker_cnt" {
   type = number
 }

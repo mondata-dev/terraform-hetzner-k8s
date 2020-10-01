@@ -21,7 +21,7 @@ variable "ssh_private_key_file" {
 }
 
 variable "ssh_agent" {
-  description = "Set this to true for password protected private keys"
+  description = "Set this to true for password protected private keys; Setthing ssh_agent to true will ignore the ssh_private_key_file setting"
   type = bool
   default = false
 }

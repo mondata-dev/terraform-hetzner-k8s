@@ -19,7 +19,7 @@ resource "null_resource" "master_provisioners" {
     user = "root"
     host = hcloud_server.master.ipv4_address
     agent = var.ssh_agent
-    private_key = file(var.ssh_private_key_file)
+    private_key = var.ssh_agent ? null : file(var.ssh_private_key_file)
   }
 
   provisioner "file" {

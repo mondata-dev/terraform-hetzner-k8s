@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # from https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-21---configure-floating-ips
 mkdir -p /etc/network/interfaces.d

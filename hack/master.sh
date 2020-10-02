@@ -1,4 +1,5 @@
 #/bin/sh
+set -eu
 
 HCLOUD_TOKEN=$1
 HCLOUD_NETWORK_ID=$2

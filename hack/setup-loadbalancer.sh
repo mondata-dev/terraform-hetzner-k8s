@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # TODO remove this in environments with only helm3 installed as helm
 HELM=helm3

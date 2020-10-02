@@ -2,6 +2,7 @@
 #
 # For details see https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-3---install-kubernetes
 #
+set -eu
 
 # Update System
 apt-get -qq update

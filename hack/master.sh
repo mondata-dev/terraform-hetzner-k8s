@@ -39,7 +39,7 @@ stringData:
 EOF
 
 # Deploy Hetzner Cloud Controller Manager
-kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/master/deploy/v1.6.1-networks.yaml
+kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/5162e2f8bf9c38f4fdd632c81b847722d272fff8/deploy/ccm-networks.yaml
 
 # Setup Cluster Network Interface (CNI)
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml

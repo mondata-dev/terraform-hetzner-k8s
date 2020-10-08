@@ -6,8 +6,11 @@ HELM=helm3
 
 # Setup MetalLB
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-35---setup-loadbalancing-optional
+$HELM repo add bitnami https://charts.bitnami.com/bitnami
+$HELM repo update
+
 kubectl create namespace metallb
-$HELM install metallb stable/metallb --namespace metallb
+$HELM install metallb bitnami/metallb --namespace metallb
 
 cat <<EOF | kubectl apply -f-
 apiVersion: v1

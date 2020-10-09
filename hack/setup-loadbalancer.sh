@@ -16,8 +16,8 @@ cat <<EOF | kubectl apply -f-
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: metallb
-  name: metallb-config
+  namespace: default
+  name: metallb
 data:
   config: |
     address-pools:

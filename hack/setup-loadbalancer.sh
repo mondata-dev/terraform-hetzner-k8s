@@ -10,22 +10,10 @@ $HELM repo add bitnami https://charts.bitnami.com/bitnami
 $HELM repo update
 
 kubectl create namespace metallb
-$HELM install metallb bitnami/metallb --namespace metallb
-
-cat <<EOF | kubectl apply -f-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: default
-  name: metallb
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - $HCLOUD_FLOATING_IP/32
-EOF
+$HELM install metallb bitnami/metallb --namespace metallb \
+  --set configInline.address-pools[0].name=default \
+  --set configInline.address-pools[0].protocol=layer2 \
+  --set configInline.address-pools[0].addresses[0]=$HCLOUD_FLOATING_IP/32
 
 # Setup IP Failover
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-36---setup-floating-ip-failover-optional

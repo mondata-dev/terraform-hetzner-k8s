@@ -30,6 +30,11 @@ variable "worker_cnt" {
   type = number
 }
 
+variable "worker_server_type" {
+  type = string
+  default = "cx21"
+}
+
 variable "kubeconfig_path" {
   description = "The path to the kubeconfig file for the newly created cluster"
   type = string

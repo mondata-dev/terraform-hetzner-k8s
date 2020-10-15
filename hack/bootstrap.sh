@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/bash
 #
 # For details see https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-3---install-kubernetes
 #

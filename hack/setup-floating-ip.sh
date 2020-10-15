@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 
 # from https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-21---configure-floating-ips

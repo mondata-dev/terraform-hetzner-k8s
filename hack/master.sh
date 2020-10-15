@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/bash
 set -eu
 
 HCLOUD_TOKEN=$1

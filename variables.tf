@@ -36,6 +36,7 @@ variable "worker_server_type" {
 }
 
 variable "worker_additional_setup_script" {
+  description = "Optional: Path to a shell script that is run on each worker node for additional setup instructions"
   type = string
   default = null
 }

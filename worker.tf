@@ -68,11 +68,22 @@ resource "null_resource" "worker_provisioners" {
     destination = "/root/worker.sh"
   }
 
+  provisioner "file" {
+    source      = "${path.module}/hack/worker.sh"
+    destination = "/root/worker.sh"
+  }
+
+  provisioner "file" {
+    source      = var.additional_worker_setup_script || "${path.module}/hack/dummy.sh"
+    destination = "/root/additional_setup.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "/bin/bash /root/setup-floating-ip.sh ${hcloud_floating_ip.vb_cdap_load_balancer.ip_address}",
       "/bin/bash /root/bootstrap.sh",
       "/bin/bash /root/worker.sh",
+      "/bin/bash /root/additional_setup.sh",
     ]
   }
 }

@@ -35,6 +35,11 @@ variable "worker_server_type" {
   default = "cx21"
 }
 
+variable "worker_additional_setup_script" {
+  type = string
+  default = null
+}
+
 variable "kubeconfig_path" {
   description = "The path to the kubeconfig file for the newly created cluster"
   type = string

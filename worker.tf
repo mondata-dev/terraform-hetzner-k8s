@@ -74,7 +74,7 @@ resource "null_resource" "worker_provisioners" {
   }
 
   provisioner "file" {
-    source      = var.additional_worker_setup_script || "${path.module}/hack/dummy.sh"
+    source      = var.worker_additional_setup_script || "${path.module}/hack/dummy.sh"
     destination = "/root/additional_setup.sh"
   }
 

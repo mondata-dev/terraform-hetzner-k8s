@@ -17,7 +17,7 @@ $HELM install metallb bitnami/metallb --namespace metallb \
 
 # Setup IP Failover
 # See https://community.hetzner.com/tutorials/install-kubernetes-cluster#step-36---setup-floating-ip-failover-optional
-$HELM repo add cbeneke https://cbeneke.github.com/helm-charts
+$HELM repo add cbeneke https://cbeneke.github.io/helm-charts
 $HELM repo update
 
 kubectl create namespace fip-controller

@@ -12,7 +12,7 @@ IP_ADR=`ifconfig ens10 | grep -w "inet" | tr -s " " | cut -f3 -d" "`
 
 kubeadm init \
   --pod-network-cidr=10.244.0.0/16 \
-  --kubernetes-version=v1.20.11 \
+  --kubernetes-version=v1.20.12 \
   --ignore-preflight-errors=NumCPU \
   --apiserver-cert-extra-sans $IP_ADR
 
@@ -40,7 +40,7 @@ stringData:
 EOF
 
 # Deploy Hetzner Cloud Controller Manager
-kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/5162e2f8bf9c38f4fdd632c81b847722d272fff8/deploy/ccm-networks.yaml
+kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/v1.12.1/deploy/ccm-networks.yaml
 
 # Setup Cluster Network Interface (CNI)
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.12.0/Documentation/kube-flannel.yml

@@ -1,0 +1,38 @@
+# Fixes hetzner security issues (abuse emails concerning portmapper service).
+# Install this after cluster setup using kubectl apply.
+# Code from https://github.com/kubermatic/kubeone/issues/1207#issuecomment-753317440
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: disable-rpc-bind
+  namespace: kube-system
+  labels:
+    type: startup-script
+    app: disable-rpc-bind
+spec:
+  selector:
+    matchLabels:
+      app: disable-rpc-bind
+  template:
+    metadata:
+      labels:
+        app: disable-rpc-bind
+    spec:
+      hostPID: true
+      tolerations:
+      - operator: Exists
+      containers:
+        - name: startup-script
+          image: quay.io/kubermatic/startup-script:v0.1.0
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          env:
+          - name: STARTUP_SCRIPT
+            value: |
+              #! /bin/bash
+              set -o errexit
+              set -o pipefail
+              set -o nounset
+              if systemctl is-active rpcbind.service; then systemctl stop rpcbind.service; fi
+              systemctl mask rpcbind.service

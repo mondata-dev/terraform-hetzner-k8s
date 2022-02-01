@@ -2,6 +2,17 @@
 
 A terraform module for a kubernetes cluster on hetzner cloud.
 
+## Usage
+
+For an example see `examples/basic/main.tf`.
+Install with `terraform apply`.
+
+After installation, fix hetzner security issues leading to abuse emails by installing the `disable-rpc-bind` daemon set:
+
+```bash
+kubectl apply -f examples/basic/disable-rpc-bind.yaml`
+```
+
 ## Configuration
 
 ### SSH-Keys
